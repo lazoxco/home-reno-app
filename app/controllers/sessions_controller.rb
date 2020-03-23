@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 
     post '/sessions' do
         # Login a user with this email
-        login(params[:email])
+        login(params[:email], params[:password])
         redirect '/tasks'
     end
 
