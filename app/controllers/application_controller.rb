@@ -11,6 +11,21 @@ class ApplicationController < Sinatra::Base
     enable :sessions
     set :session_secret, "secret"
   end
+  
+  helpers do
+    def logged_in?
+      !!session[:email]
+    end
+
+    def login(email)
+      session[:email] = email
+    end
+
+    def logout!
+      session.clear
+      # Emailing them to let them know they logged out
+    end
+  end
 
   get "/" do
     erb :index
