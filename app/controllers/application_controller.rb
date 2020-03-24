@@ -14,7 +14,11 @@ class ApplicationController < Sinatra::Base
   
   helpers do
     def logged_in?
-      !!session[:email]
+      !!current_user
+    end
+
+    def current_user
+      @current_user ||= User.find_by(:email => session[:email]) if session[:email]
     end
 
     def login(email, password)
@@ -28,7 +32,6 @@ class ApplicationController < Sinatra::Base
 
     def logout!
       session.clear
-      # Emailing them to let them know they logged out
     end
   end
 
@@ -36,16 +39,16 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
-  get '/registrations/signup' do
-    erb :'/registrations/signup'
-  end
+  # get '/registrations/signup' do
+  #   erb :'/registrations/signup'
+  # end
 
   # get '/registrations/signup' do
   #   erb :'/registrations/signup'
   # end
 
-  post '/registrations' do
-    @user = User.new(name: params["name"], email: params["email"], password: params["password"])
-  end
+  # post '/registrations' do
+  #   @user = User.new(name: params["name"], email: params["email"], password: params["password"])
+  # end
 
 end
