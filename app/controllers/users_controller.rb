@@ -2,19 +2,21 @@ require './config/environment'
 
 class UsersController < ApplicationController
 
-get '/signup' do
+  get '/signup' do
     erb :"users/new"
-end
+  end
 
-post '/users' do
-    @user = User.new
-    @user.email = params[:email]
-    @user.password = params[:password]
+  post '/users' do
+    @user = User.create(name: params[:name], email: params[:email], password: params[:password])
     if @user.save
-        redirect '/login'
+      redirect '/login'
     else
-        erb :"users/new"
+      erb :"users/new"
     end
-end
-    
+  end
+
+  get '/users/:id' do 
+    @user = User.find(params[:id])
+    erb :'/users/show'
+  end
 end
