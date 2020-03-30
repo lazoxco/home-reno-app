@@ -3,7 +3,7 @@ require './config/environment'
 class UsersController < ApplicationController
 
   get '/signup' do
-    erb :"users/new"
+    erb :'/users/new'
   end
 
   post '/users' do
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect '/login'
     else
-      erb :"users/new"
+      erb :"/users/#{ @user.id}"
     end
   end
 
