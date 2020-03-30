@@ -7,12 +7,14 @@ class UsersController < ApplicationController
   end
 
   post '/users' do
-    @user = User.create(name: params[:name], email: params[:email], password: params[:password])
-    if @user.save
-      redirect '/login'
-    else
-      erb :"/users/#{ @user.id}"
-    end
+    @user = User.create(
+      name: params[:name],
+      email: params[:email], 
+      password: params[:password]
+    )
+    session[:user_id] = @user.id
+
+    redirect "/users/#{@user.id}"
   end
 
   get '/users/:id' do 

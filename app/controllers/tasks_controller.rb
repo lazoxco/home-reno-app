@@ -1,23 +1,23 @@
 class TasksController < ApplicationController
 
-  # get '/tasks' do 
-  #   # erb :"tasks"
-  #   "A list of publicly available tasks"
-  # end
-
 # Create
   get '/tasks/new' do 
     # Checking if they are logged in
-    if !logged_in?
-        redirect "/login" # Redirecting if they aren't
-    else
-        "Render a new post form" # Rendering if they are
-        erb :'/tasks/new'
-    end
+    # if !logged_in?
+    #     redirect "/login" # Redirecting if they aren't
+    # else
+    #     "Render a new post form" # Rendering if they are
+    #     erb :'/tasks/new'
+    # end
+
+    erb :'/tasks/new'
   end
 
   post '/tasks' do 
-    @task = Task.create(title: params[:title], content: params[:content])
+    @task = Task.create(
+      title: params[:title], 
+      content: params[:content]
+    )
     redirect "/tasks/#{@task.id}"
   end
 
@@ -36,18 +36,6 @@ class TasksController < ApplicationController
 # Update
 
   get '/tasks/:id/edit' do
-    # Checking if they are logged in
-    # if !logged_in?
-    #   redirect "/login" # Redirecting if they aren't
-    # else
-    #   if task = current_user.tasks.find(params[:id])
-    #       @task = Task.find(params[:id])
-    #       erb :'/tasks/edit'
-    #   else 
-    #       redirect '/tasks'
-    #   end
-    # end
-
     @task = Task.find(params[:id])
     erb :'/tasks/edit'
   end
