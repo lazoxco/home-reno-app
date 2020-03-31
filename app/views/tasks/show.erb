@@ -1,7 +1,7 @@
 <h1><%= @task.title %></h1>
 <p><%= @task.content %></p>
 
-<form method="post" action="/task/<%= @task.id %>">
+<form method="post" action="/tasks/<%= @task.id %>">
   <input id="hidden" type="hidden" name="_method" value="DELETE">
   <input type="submit" value="Remove Task">
 </form>

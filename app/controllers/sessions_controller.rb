@@ -1,18 +1,26 @@
 class SessionsController < ApplicationController
 
-    # get '/login' do
-    #     erb :'sessions/login'
-    # end
+    get '/login' do
+        erb :'/users/login'
+      end
+    
+      post '/login' do
+        # want to find the user if it exists
+        @user = User.find_by(email: params[:email])
+    
+        if @user && @user.authenticate(params[:password])
+          # authenticate password
+          session[:user_id] = @user.id
+          redirect "/users/#{@user.id}"
+        else
+          redirect "/login"
+        end
+    
+      end
 
-    # post '/sessions' do
-    #     # Login a user with this email
-    #     login(params[:email], params[:password])
-    #     redirect '/tasks'
-    # end
-
-    # get '/logout' do
-    #     logout!
-    #     redirect '/tasks'
-    # end
+      get '/logout' do
+        session.clear
+        redirect '/'
+      end
 
 end

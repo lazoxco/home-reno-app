@@ -2,7 +2,7 @@ class TasksController < ApplicationController
 
 # Create
   get '/tasks/new' do 
-    Checking if they are logged in
+    # Checking if they are logged in
     if !logged_in?
         redirect "/login" # Redirecting if they aren't
     else
@@ -14,11 +14,18 @@ class TasksController < ApplicationController
   end
 
   post '/tasks' do 
-    @task = Task.create(
+    @task = Task.new(
       title: params[:title], 
-      content: params[:content]
+      content: params[:content],
+      user_id: current_user.id
     )
-    redirect "/tasks/#{@task.id}"
+
+    if @task.save
+      redirect "/tasks/#{@task.id}"
+    else
+      redirect '/tasks/new'
+    end
+    
   end
 
 # Read
@@ -29,8 +36,12 @@ class TasksController < ApplicationController
   end
 
   get '/tasks' do
-    @tasks = Task.all #returns an array
-    erb :'/tasks/index'
+    if !logged_in?
+      redirect '/login'
+    else
+      @tasks = current_user.tasks #returns an array
+      erb :'/tasks/index'
+    end
   end
 
 # Update
@@ -40,7 +51,7 @@ class TasksController < ApplicationController
     erb :'/tasks/edit'
   end
 
-  post '/tasks/:id' do
+  patch '/tasks/:id' do
     @task = Task.find(params[:id])
     @task.update(title: params[:title], content: params[:content])
     redirect "/tasks/#{@task.id}"
