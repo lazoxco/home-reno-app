@@ -5,11 +5,9 @@ class SessionsController < ApplicationController
       end
     
     post '/login' do
-      # want to find the user if it exists
       @user = User.find_by(email: params[:email])
   
       if @user && @user.authenticate(params[:password])
-        # authenticate password
         session[:user_id] = @user.id
         # redirect "/users/#{@user.id}"
         redirect "/tasks"

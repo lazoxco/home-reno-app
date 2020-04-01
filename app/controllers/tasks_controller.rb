@@ -6,11 +6,8 @@ class TasksController < ApplicationController
     if !logged_in?
         redirect "/login" # Redirecting if they aren't
     else
-        "Render a new post form" # Rendering if they are
         erb :'/tasks/new'
     end
-
-    # erb :'/tasks/new'
   end
 
   post '/tasks' do 
