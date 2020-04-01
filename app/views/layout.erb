@@ -15,6 +15,19 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/styles.css">
   </head>
+
+  <nav class="navbar navbar-light bg-light justify-content-between">
+  <% if logged_in? %>
+    <a href="/tasks" class="navbar-brand">HomeReno App</a>
+  <% else %>
+    <a href="/" class="navbar-brand">HomeReno App</a>
+  <% end %>
+  
+  <% if logged_in? %>
+  <a href="/logout" class="btn btn-outline-primary">Log Out</a>
+  <% end %>
+</nav>
+
   <body>
     <div class="container">
         <%= yield %>

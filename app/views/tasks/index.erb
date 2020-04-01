@@ -1,9 +1,20 @@
 <% @tasks.each do |task| %>
-
   <p>
   <strong>Task Name: <%= task.title %></strong><br>
   Description: <%= task.content %><br>
   <p>
 
-  Created by: <%= task.user.name %>
+  <p>Created by: <%= task.user.name %></p>
+
+  <p>
+  <form method="post" action="/tasks/<%= task.id %>">
+    <a href="/tasks/<%= task.id %>" class="btn btn-primary">View Task</a>
+    <a href="/tasks/<%= task.id %>/edit" class="btn btn-secondary">Edit</a>
+    <input id="hidden" type="hidden" name="_method" value="DELETE">
+    <input class="btn btn-danger" type="submit" value="Remove Task">
+  </form>
+  </p>
+  <hr>
 <% end %>
+
+<a href="/tasks/new" class="btn btn-success">Create Task</a>

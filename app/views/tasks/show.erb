@@ -2,6 +2,7 @@
 <p><%= @task.content %></p>
 
 <form method="post" action="/tasks/<%= @task.id %>">
+  <a href="/tasks/<%= @task.id %>/edit" class="btn btn-secondary">Edit</a>
   <input id="hidden" type="hidden" name="_method" value="DELETE">
-  <input type="submit" value="Remove Task">
+  <input class="btn btn-danger" type="submit" value="Remove Task">
 </form>

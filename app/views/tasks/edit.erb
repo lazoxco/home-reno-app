@@ -13,5 +13,6 @@
     <textarea type="text" value="<%= @task.content %>" name="content" id="content"></textarea>
   </p>
 
-  <input type="submit" value="Update Task">
+  <input class="btn btn-primary" type="submit" value="Update Task">
+  <a href="/tasks/<%= @task.id %>" class="btn btn-secondary">Cancel</a>
 </form>
