@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
 
     get '/login' do
         erb :'/users/login'
-      end
+    end
     
     post '/login' do
       @user = User.find_by(email: params[:email])

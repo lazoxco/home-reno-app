@@ -11,11 +11,7 @@ class TasksController < ApplicationController
   end
 
   post '/tasks' do 
-    @task = Task.new(
-      title: params[:title], 
-      content: params[:content],
-      user_id: current_user.id
-    )
+    @task = current_user.tasks.build(params)
 
     if @task.save
       redirect "/tasks/#{@task.id}"
@@ -43,15 +39,23 @@ class TasksController < ApplicationController
 
 # Update
 
-  get '/tasks/:id/edit' do
+  get '/tasks/:id/edit' do    
     @task = Task.find(params[:id])
+      if current_user.id == @task.user_id
     erb :'/tasks/edit'
+    else
+      redirect '/login'
+    end
   end
 
   patch '/tasks/:id' do
     @task = Task.find(params[:id])
-    @task.update(title: params[:title], content: params[:content])
-    redirect "/tasks/#{@task.id}"
+    if @task.update(title: params[:title], content: params[:content])
+      redirect "/tasks/#{@task.id}"
+    else
+      erb :'/tasks/edit'
+    end
+    
   end
 
 # Delete

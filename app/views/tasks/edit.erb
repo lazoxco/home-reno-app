@@ -1,5 +1,9 @@
 <h1>Edit Task</h1>
-
+<% if @task.errors.any? %>
+  <% @task.errors.full_messages.each do |message| %>
+  <%= message %>
+  <% end %>
+<%end%>
 <form action="/tasks/<%= @task.id %>" method="POST">
   <input id="hidden" type="hidden" name="_method" value="patch">
 
